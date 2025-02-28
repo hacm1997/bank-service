@@ -1,0 +1,71 @@
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de entorno virtual
+venv/
+env/
+*.venv
+*.env
+
+# Configuración del entorno
+.env
+*.local
+config/settings/local.py
+
+# Archivos de logs
+logs/
+*.log
+*.out
+*.err
+
+# Archivos de la base de datos SQLite
+db.sqlite3
+db.sqlite3-journal
+
+# Archivos de migraciones compilados
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# Archivos estáticos y de medios generados
+staticfiles/
+media/
+
+# Archivos de cache y compilación
+*.cache
+*.mo
+*.pot
+node_modules/
+build/
+dist/
+
+# Archivos de IDEs y editores
+.vscode/
+.idea/
+*.iml
+
+# Archivos de dependencias de Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de Docker (si usas Docker)
+docker-compose.override.yml
+*.dockerfile
+
+# Archivos de coverage (si usas pruebas de cobertura)
+htmlcov/
+.coverage
+.coverage.*
+
+# Archivos de Celery
+celerybeat-schedule
+
+# Archivos de pytest
+.pytest_cache/
+
+# Archivos de Django Debug Toolbar
+debug.log
+
+# Archivos de Jupyter Notebook (si usas Jupyter)
+.ipynb_checkpoints/
