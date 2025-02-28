@@ -93,8 +93,6 @@ WSGI_APPLICATION = 'bank_app_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# postgresql://postgres:EmhauZYvdCJlovMtMOTrmGDjdvRkJFAU@nozomi.proxy.rlwy.net:16721/railway
-# postgresql://postgres:EmhauZYvdCJlovMtMOTrmGDjdvRkJFAU@postgres.railway.internal:5432/railway
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv("DATABASE_URL", "postgresql://postgres:EmhauZYvdCJlovMtMOTrmGDjdvRkJFAU@nozomi.proxy.rlwy.net:16721/railway"),
