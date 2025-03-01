@@ -40,8 +40,6 @@ class LoginConstroller(APIView):
                 max_age=60 * 60,
             )
 
-            print(refresh.access_token)
-
             response.set_cookie(
                 key="refresh_token",
                 value=str(refresh),
@@ -54,6 +52,18 @@ class LoginConstroller(APIView):
             return response
 
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+class LogoutController(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        response = JsonResponse({"message": "Logout successful"})
+
+        # Delete token cookies
+        response.delete_cookie("access_token")
+        response.delete_cookie("refresh_token")
+
+        return response
     
 class UserProfileController(APIView):
     permission_classes = [permissions.IsAuthenticated]
