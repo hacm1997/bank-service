@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from app.serializers.user_serializer import UserSerializer
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -26,8 +27,37 @@ class LoginConstroller(APIView):
         if user is not None:
             refresh = RefreshToken.for_user(user)
             update_last_login(None, user)
-            return Response({
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
-            })
+
+            response = JsonResponse({"message": "Login successful"})
+            
+            # Config secury cookies
+            response.set_cookie(
+                key="access_token",
+                value=str(refresh.access_token),
+                httponly=True,
+                secure=True,
+                samesite="Lax",
+                max_age=60 * 60,
+            )
+
+            print(refresh.access_token)
+
+            response.set_cookie(
+                key="refresh_token",
+                value=str(refresh),
+                httponly=True,
+                secure=True,
+                samesite="Lax",
+                max_age=60 * 60 * 24 * 7,
+            )
+
+            return response
+
         return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+class UserProfileController(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({"username": user.username}, status=200)
