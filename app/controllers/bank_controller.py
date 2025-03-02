@@ -20,7 +20,7 @@ class BankController(APIView):
                 page_size = int(page_size)
                 page = int(page)
             except ValueError:
-                return Response({"error": "page_size y page deben ser números enteros"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "page_size and page must be integers"}, status=status.HTTP_400_BAD_REQUEST)
 
             banks = self.bank_service.get_banks(page_size, page)
             if not banks:
@@ -30,6 +30,6 @@ class BankController(APIView):
 
         except Exception as e:
             return Response(
-                {"error": "Error al procesar la solicitud", "detail": str(e)},
+                {"error": "Error processing the request", "detail": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

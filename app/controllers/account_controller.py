@@ -4,9 +4,10 @@ from app.services.account_service import AccountService
 from rest_framework import status
 from app.services.kpi_service import KPIService
 from app.services.transaction_service import TransactionService
-
+from rest_framework.permissions import IsAuthenticated
 
 class AccountController(APIView):
+    permission_classes = [IsAuthenticated]
     def __init__(self):
         self.acount_service = AccountService()
         self.transaction_service = TransactionService()
@@ -16,10 +17,10 @@ class AccountController(APIView):
             # Get transaction of specified account
             transactions = self.transaction_service.get_transactions(account_id, link_id)
             if transactions is None:
-                return Response({"error": "No se pudieron obtener transacciones"})
+                return Response({"error": "No transactions could be obtained"})
             kpi = KPIService.calculate_balance(transactions['results'])
 
-            return Response({"kpi": kpi, "transactions": transactions['results']}, status=status.HTTP_200_OK)
+            return Response(kpi, status=status.HTTP_200_OK)
         else:
             accounts = self.acount_service.get_accounts(link_id)
             if accounts is None:

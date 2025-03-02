@@ -37,7 +37,7 @@ class LoginConstroller(APIView):
                 httponly=True,
                 secure=True,
                 samesite="Lax",
-                max_age=60 * 60,
+                max_age=60 * 60 * 24,
             )
 
             response.set_cookie(

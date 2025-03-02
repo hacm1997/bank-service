@@ -3,8 +3,10 @@ from rest_framework.views import APIView
 from app.services.link_service import LinkService
 from rest_framework import status
 from app.serializers.link_serializer import LinkSerializer
+from rest_framework.permissions import IsAuthenticated
 
 class LinkController(APIView):
+    permission_classes = [IsAuthenticated]
     def __init__(self):
         self.link_service = LinkService()
 
