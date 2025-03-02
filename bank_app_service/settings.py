@@ -75,12 +75,12 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://bank-wep-app-ff5i.vercel.app", #http://localhost:3000
 ]
 CORS_ALLOW_HEADERS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
+    "https://bank-wep-app-ff5i.vercel.app", #http://localhost:3000
 ]
 
 ROOT_URLCONF = 'bank_app_service.urls'
