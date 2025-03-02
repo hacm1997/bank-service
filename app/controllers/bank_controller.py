@@ -13,14 +13,23 @@ class BankController(APIView):
 
     def get(self, request):
         try:
-            # Obtener lista de bancos
-            banks = self.bank_service.get_banks()
+            page_size = request.query_params.get("page_size", 10)
+            page = request.query_params.get("page", 1)
+
+            try:
+                page_size = int(page_size)
+                page = int(page)
+            except ValueError:
+                return Response({"error": "page_size y page deben ser números enteros"}, status=status.HTTP_400_BAD_REQUEST)
+
+            banks = self.bank_service.get_banks(page_size, page)
             if not banks:
                 return Response({"error": "No available banks were found"}, status=status.HTTP_404_NOT_FOUND)
+
             return Response(banks, status=status.HTTP_200_OK)
 
         except Exception as e:
             return Response(
-                {"error": "Error al procesar la solicitud", "detalle": str(e)},
+                {"error": "Error al procesar la solicitud", "detail": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

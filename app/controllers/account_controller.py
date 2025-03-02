@@ -12,18 +12,14 @@ class AccountController(APIView):
         self.transaction_service = TransactionService()
 
     def get(self, request, link_id=None, account_id=None):
-        if link_id and account_id:
-            account = self.acount_service.get_account_by_id(account_id, link_id)
-            if not account:
-                return Response({"error": "No accounts were found for this bank"}, status=status.HTTP_404_NOT_FOUND)
-            
+        if link_id and account_id:            
             # Get transaction of specified account
             transactions = self.transaction_service.get_transactions(account_id, link_id)
             if transactions is None:
                 return Response({"error": "No se pudieron obtener transacciones"})
             kpi = KPIService.calculate_balance(transactions['results'])
 
-            return Response({"kpi": kpi, "account": account, "transactions": transactions['results']}, status=status.HTTP_200_OK)
+            return Response({"kpi": kpi, "transactions": transactions['results']}, status=status.HTTP_200_OK)
         else:
             accounts = self.acount_service.get_accounts(link_id)
             if accounts is None:

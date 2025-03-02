@@ -11,10 +11,10 @@ from app.controllers.user_controller import RegisterController, LoginConstroller
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('banks/', BankController.as_view(), name="bank-detail"),
-    path('banks/link/', LinkController.as_view(), name="link-detail"),
-    #path('link/<str:link_id>/', LinkController.as_view(), name="bank-detail"),
-    path('account/<str:link_id>/', AccountController.as_view(), name="accounts-detail"),
+    path('banks', BankController.as_view(), name="bank-detail"),
+    path('banks/link', LinkController.as_view(), name="link-banks-detail"),
+    path('banks/link/<str:link_id>', LinkController.as_view(), name="links"),
+    path('account/<str:link_id>', AccountController.as_view(), name="accounts-detail"),
     path('account/<str:link_id>/<str:account_id>/', AccountController.as_view(), name="account-id-detail"),
     path('api/auth/register/', RegisterController.as_view(), name='register'),
     path('api/auth/login/', LoginConstroller.as_view(), name='login'),

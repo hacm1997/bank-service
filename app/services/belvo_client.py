@@ -23,3 +23,13 @@ class BelvoClient:
         url = f"{self.base_url}/{endpoint}"
         response = requests.get(url, headers=self.headers, params=params)
         return response.json() if response.status_code == 200 else None
+    
+    def post(self, endpoint, data=None):
+        url = f"{self.base_url}/{endpoint}"
+        response = requests.post(url, headers=self.headers, json=data)
+        return response.json() if response.status_code in [200, 201] else None
+    
+    def delete(self, endpoint, item_id):
+        url = f"{self.base_url}/{endpoint}/{item_id}"
+        response = requests.delete(url, headers=self.headers)
+        return response.status_code == 204
